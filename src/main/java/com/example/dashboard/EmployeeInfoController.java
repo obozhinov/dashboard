@@ -6,9 +6,7 @@ import com.netflix.discovery.shared.Application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collection;
@@ -20,14 +18,14 @@ public class EmployeeInfoController {
     @Autowired
     private DashboardFeignClient feignClient;
 
-    @RequestMapping("/dashboard/{id}")
-    public EmployeeInfo findById(@PathVariable Long id) {
-        return feignClient.findById(id);
+    @GetMapping("/dashboard/{id}")
+    public EmployeeInfo findById(@PathVariable Long id, @RequestHeader("Authorization") String authHeader) {
+        return feignClient.findById(id, authHeader);
     }
 
-    @RequestMapping("/dashboard/all")
-    public Collection<?> findAll() {
-        return feignClient.findAll();
+    @GetMapping("/dashboard/all")
+    public Collection<?> findAll(@RequestHeader("Authorization") String authHeader) {
+        return feignClient.findAll(authHeader);
     }
 
 }

@@ -22,4 +22,5 @@ public class DashboardApplication {
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
 		return builder.build();
 	}
+
 }
